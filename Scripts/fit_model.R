@@ -1,4 +1,5 @@
 source("Scripts/make_data.R")
+source("Scripts/generator.R")
 
 num_str_length <- 12
 
