@@ -43,12 +43,12 @@ previous_letters_input <-
   layer_input(shape = c(num_str_length,num_characters), name = "previous_letters_input") 
 previous_letters_lstm <- 
   previous_letters_input %>%
-  layer_lstm(input_shape = c(num_str_length,num_characters), units=96, name="previous_letters_lstm")
+  layer_lstm(input_shape = c(num_str_length,num_characters), units=64, name="previous_letters_lstm")
 
 output <- 
   layer_concatenate(c(previous_letters_lstm, gender_dense, breed_dense)) %>%
   layer_dropout(0.2) %>%
-  layer_dense(96,name="joined_dense") %>%
+  layer_dense(64,name="joined_dense") %>%
   layer_dropout(0.2) %>%
   layer_dense(num_characters, name="reduce_to_characters_dense") %>%
   layer_activation("softmax", "final_activation")
@@ -69,7 +69,7 @@ fit_results <- model %>% keras::fit(
   validation_data = list(list(test_pl,test_g,test_b), list(test_y))
  )
 
-generated_names <- 1:50 %>%
+generated_names <- 1:100 %>%
   map(function(x){
     gender <- sample(c("M","F"), 1)
     breed <- breed_lookup %>% sample_n(1) %>% pull(breed)
