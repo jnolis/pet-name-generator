@@ -13,7 +13,7 @@ pet_data <- get_nyc_pet_data()
 breed_lookup <- get_breed_lookup(pet_data)
 
 c(previous_letters_data,breed_data,gender_data, pet_subs) %<-% 
-  split_into_subs(pet_data, character_lookup, breed_lookup, gender_lookup, num_str_length+1)
+  split_into_subs_nyc(pet_data, character_lookup, breed_lookup, gender_lookup, num_str_length+1)
 
 is_train <- runif(nrow(pet_subs)) < 0.9
 
